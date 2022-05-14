@@ -1,0 +1,16 @@
+.auth__links {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    margin: 15px 0 80px;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+  }
+  
+  @media screen and (max-width: 582px) {
+    .auth__links {
+      font-size: 12px;
+      line-height: 15px;
+    }
+  }

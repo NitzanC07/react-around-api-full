@@ -1,0 +1,13 @@
+.profile__information {
+  width: 415px;
+  margin-left: 30px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+@media screen and (max-width: 880px) {
+  .profile__information {
+    width: 282px;
+    margin-left: 0;
+  }
+}

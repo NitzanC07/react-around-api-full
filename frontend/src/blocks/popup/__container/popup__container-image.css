@@ -1,0 +1,15 @@
+.popup__container-image {
+  width: fit-content;
+  margin: auto;
+  padding: 0px;
+  border: none;
+  position: relative;
+  top: 50%;
+  transform: translate(0, -50%);
+}
+
+@media screen and (max-width: 920px) {
+  .popup__container-image {
+    margin: auto 40px;
+  }
+}

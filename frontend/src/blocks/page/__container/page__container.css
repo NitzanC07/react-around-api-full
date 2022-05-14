@@ -1,0 +1,16 @@
+.page__container {
+  width: 100%;
+  max-width: 880px;
+  min-width: 320px;
+  margin: 45px auto 60px;
+  padding: 0;
+}
+/* .page__container_openning-form{
+    opacity: 0.5;
+} */
+
+@media screen and (max-width: 582px) {
+  .page__container {
+    margin: 28px auto 36px;
+  }
+}

@@ -1,0 +1,11 @@
+.profile__group {
+  margin: 22px auto 16px 30px;
+  justify-content: center;
+  align-items: center;
+  display: grid;
+  grid-template-areas:
+    "name edit"
+    "info info";
+  grid-template-columns: 4fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}

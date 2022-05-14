@@ -1,0 +1,14 @@
+.page {
+  position: relative;
+  margin: 0 auto;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #000;
+  font-family: "Inter", "Arial", "San-serif";
+  font-weight: normal;
+  color: #fff;
+}
+
+body {
+  background-color: #000;
+}
