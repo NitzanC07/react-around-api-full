@@ -3,7 +3,7 @@ const User = require('../models/user');
 /** Function for get the whole list of the users from data base. */
 const getUsers = async (req, res) => {
   try {
-    const users = await User.find({});
+    const users = await User.find({}).select('+password');
     res.status(200).send(users);
   } catch (err) {
     console.log('Error in getUsers: ', err);
@@ -11,15 +11,10 @@ const getUsers = async (req, res) => {
   }
 };
 
-const gerCurrentUser = (req, res) => {
-  console.log('currentUser', req.user);
-  res.status(200).send({ message: `getCurrentUser ${req.user}` });
-}
-
 /** Function for select specific user from the data base. */
-const getUserById = async (req, res) => {
+const getCurrentUser = async (req, res) => {
   try {
-    const user = await User.findById(req.params.user_id);
+    const user = await User.findById(req.user._id).select('+password');
     if (!user) {
       res.status(404).send({ message: 'User ID not found.' });
     } else {
@@ -45,7 +40,7 @@ const updateProfile = async (req, res) => {
       req.user._id,
       { name, about },
       { new: true, runValidators: true },
-    );
+    ).select('+password');
     res.status(200).send(user);
   } catch (err) {
     if (err.name === 'ValidationError') {
@@ -66,7 +61,7 @@ const updateProfileAvatar = async (req, res) => {
       req.user._id,
       { avatar },
       { new: true, runValidators: true },
-    );
+    ).select('+password');
     res.status(200).send(user);
   } catch (err) {
     if (err.name === 'ValidationError') {
@@ -83,8 +78,7 @@ const updateProfileAvatar = async (req, res) => {
 
 module.exports = {
   getUsers,
-  gerCurrentUser,
-  getUserById,
+  getCurrentUser,
   updateProfile,
   updateProfileAvatar,
 };

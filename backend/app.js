@@ -14,7 +14,6 @@ const {
   loginUser,
 } = require('./controllers/auth');
 const auth = require('./middleware/auth');
-const user = require('./models/user');
 
 mongoose.connect('mongodb://localhost:27017/aroundb');
 
@@ -25,20 +24,13 @@ app.use(bodyParser.json());
 app.post('/signup', createUser);
 app.post('/login', loginUser);
 
-// app.use((req, res, next) => {
-//   req.user = {
-//     _id: user._id,
-//   };
-//   next();
-// });
-
 app.use(auth);
 
 /** Athuorized routes */
 app.use('/users', usersRouter);
 app.use('/cards', cardsRouter);
 app.use((req, res) => {
-  res.status(404).send({ message: 'The requested resource was not found.' });
+  res.status(404).send({ message: 'The requested resource was not found. MAIN PAGE' });
 });
 
 app.listen(PORT, () => {
