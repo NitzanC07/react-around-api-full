@@ -1,6 +1,6 @@
 const User = require('../models/user');
 
-// Function for get the whole list of the users in data base.
+/** Function for get the whole list of the users from data base. */
 const getUsers = async (req, res) => {
   try {
     const users = await User.find({});
@@ -11,7 +11,12 @@ const getUsers = async (req, res) => {
   }
 };
 
-// Function for a specific user from the data base.
+const gerCurrentUser = (req, res) => {
+  console.log('currentUser', req.user);
+  res.status(200).send({ message: `getCurrentUser ${req.user}` });
+}
+
+/** Function for select specific user from the data base. */
 const getUserById = async (req, res) => {
   try {
     const user = await User.findById(req.params.user_id);
@@ -31,24 +36,9 @@ const getUserById = async (req, res) => {
   }
 };
 
-// Function for creating new user to data base.
-const createUser = async (req, res) => {
-  const { name, about, avatar } = req.body;
-  try {
-    const newUser = await User.create({ name, about, avatar });
-    res.status(201).send(newUser);
-  } catch (err) {
-    if (err.name === 'ValidationError') {
-      console.log('Error in createUser: ', err.name);
-      res.status(400).send({ message: `${err.name}: Something wrong with the input.` });
-    } else {
-      console.log('Error in createUser: ', err.name);
-      res.status(500).send({ message: `${err.name}: Somthing went wrong with the server.` });
-    }
-  }
-};
-
+/** Updating user's name and about in route '/users/me'. */
 const updateProfile = async (req, res) => {
+  console.log(req.body);
   const { name, about } = req.body;
   try {
     const user = await User.findByIdAndUpdate(
@@ -68,6 +58,7 @@ const updateProfile = async (req, res) => {
   }
 };
 
+/** Updating the user's avatar with route '/users/me/avatar'. */
 const updateProfileAvatar = async (req, res) => {
   const { avatar } = req.body;
   try {
@@ -88,10 +79,12 @@ const updateProfileAvatar = async (req, res) => {
   }
 };
 
+
+
 module.exports = {
   getUsers,
+  gerCurrentUser,
   getUserById,
-  createUser,
   updateProfile,
   updateProfileAvatar,
 };

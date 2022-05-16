@@ -2,28 +2,43 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
+require('dotenv').config();
 
 const app = express();
 const { PORT = 3000 } = process.env;
+const router = express.Router();
 const usersRouter = require('./routes/users');
 const cardsRouter = require('./routes/cards');
+const {
+  createUser,
+  loginUser,
+} = require('./controllers/auth');
+const auth = require('./middleware/auth');
+const user = require('./models/user');
 
 mongoose.connect('mongodb://localhost:27017/aroundb');
 
 app.use(helmet());
 app.use(bodyParser.json());
 
-app.use((req, res, next) => {
-  req.user = {
-    _id: '625c784ce4d7cd792215039f',
-  };
-  next();
-});
+/** Unathuorized routes */
+app.post('/signup', createUser);
+app.post('/login', loginUser);
 
+// app.use((req, res, next) => {
+//   req.user = {
+//     _id: user._id,
+//   };
+//   next();
+// });
+
+app.use(auth);
+
+/** Athuorized routes */
 app.use('/users', usersRouter);
 app.use('/cards', cardsRouter);
 app.use((req, res) => {
-  res.status(404).send({ message: 'The requested resource was not found' });
+  res.status(404).send({ message: 'The requested resource was not found.' });
 });
 
 app.listen(PORT, () => {
