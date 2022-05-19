@@ -14,7 +14,7 @@ class Api {
   getInitialCards() {
     return this.customFetch(`${this._baseUrl}/cards`, {
       headers: this._headers,
-      method: 'GET' // default option
+      method: 'GET'
     })
   }
   
@@ -58,7 +58,7 @@ class Api {
 
   changeLikeCardStatus(cardId, isLiked) {
     const methodType = isLiked ? 'PUT' : 'DELETE'
-    return this.customFetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+    return this.customFetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       headers: this._headers, 
       method: methodType,     
     })
@@ -66,13 +66,20 @@ class Api {
 }
 
 
-// Token: 38a23878-64ce-4abb-ae0d-d30d11cc9a38 Group ID: group-12
 const api = new Api({
-    baseUrl: "https://around.nomoreparties.co/v1/group-12",
-    headers: {
-      authorization: "38a23878-64ce-4abb-ae0d-d30d11cc9a38",
-      "Content-Type": "application/json"
-    }
+  baseUrl: "http://localhost:3001",
+  headers: {
+    authorization: `Bearer 38a23878-64ce-4abb-ae0d-d30d11cc9a38`,
+    "Content-Type": "application/json"
+  }
 });
+// Token: 38a23878-64ce-4abb-ae0d-d30d11cc9a38 Group ID: group-12
+// const api = new Api({
+//     baseUrl: "https://around.nomoreparties.co/v1/group-12",
+//     headers: {
+//       authorization: "38a23878-64ce-4abb-ae0d-d30d11cc9a38",
+//       "Content-Type": "application/json"
+//   }
+// });
 
 export default api;

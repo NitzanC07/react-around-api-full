@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
+const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
@@ -14,11 +15,17 @@ const {
   loginUser,
 } = require('./controllers/auth');
 const auth = require('./middleware/auth');
+const permissions = require('./middleware/permissions');
+const allowedOrigins = [
+  'http://localhost:3001'
+];
 
 mongoose.connect('mongodb://localhost:27017/aroundb');
 
 app.use(helmet());
 app.use(bodyParser.json());
+app.use(cors());
+app.options(allowedOrigins, cors());
 
 /** Unathuorized routes */
 app.post('/signup', createUser);
@@ -30,7 +37,7 @@ app.use(auth);
 app.use('/users', usersRouter);
 app.use('/cards', cardsRouter);
 app.use((req, res) => {
-  res.status(404).send({ message: 'The requested resource was not found. MAIN PAGE' });
+  res.status(404).send({ message: 'The requested resource was not found. ROOT PAGE' });
 });
 
 app.listen(PORT, () => {

@@ -9,6 +9,7 @@ const {
   dislikeCard,
 } = require('../controllers/cards');
 
+// Every path begin with: /cards/...
 router.get('/', getCards);
 router.post('/', createNewCard);
 router.delete('/:card_id', deleteCard);

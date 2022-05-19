@@ -25,17 +25,19 @@ function App() {
     const [userData, setUserData] = useState(null);
     const [isLoggedIn, setLoggedIn] = useState(false);
     const [cards, setCards] = useState([]);
+    const [token, setToken] = useState(localStorage.getItem('jwt'));
+    console.log(`local storage: ${localStorage.jwt}`);
 
     function handleLoginSubmit(email, password) {
         auth.login(email, password)
         .then((res) => {
-            if(res.token) {
-                localStorage.setItem("jwt", res.token);
+            if(res.jwt) {
+                setToken(res.token);
+                localStorage.setItem("jwt", token);
                 setCurrentUser(currentUser);
                 setLoggedIn(true);
                 setInfoToolTipSuccess(true);
                 history.push('/');
-                console.log(`User logged in: ${localStorage}`);
             }
         })
         .catch((err) => {
@@ -58,14 +60,15 @@ function App() {
 
     function handleSignOut() {
         localStorage.removeItem('jwt');
+        setToken('');
         console.log(`User logged out: ${localStorage}`);
         setLoggedIn(false);
     }
 
     useEffect(() => {
-        const jwt = localStorage.getItem('jwt');
-        if(jwt) {
-            auth.getContent(jwt)
+        console.log('token', token);
+        if(token) {
+            auth.getContent(token)
             .then((data) => {
                 if(data) {
                     setLoggedIn(true);
@@ -78,7 +81,7 @@ function App() {
                 setInfoToolTipFaild(true);
             })
         }
-    }, [isLoggedIn]);
+    }, [token]);
 
     const userEmail = userData ? JSON.parse(userData).data.email : '';
 
@@ -266,6 +269,14 @@ function App() {
                                 onUpdateAvatar={handleUpdateAvatar}
                             />
 
+                            <ImagePopup 
+                                className="popup popup_type_image" 
+                                isOpen={isImagePopupOpen ? 'popup_open' : ''} 
+                                name='image'
+                                onClose={closeAllPopups}
+                                selectedCard={selectedCard}
+                            />
+
                             <DeleteCardPopup 
                                 isOpen={isDeleteCardPopupOpen}
                                 onClose={closeAllPopups}
@@ -308,14 +319,6 @@ function App() {
                         </Route>
                     </Switch>
                                         
-                    <ImagePopup 
-                        className="popup popup_type_image" 
-                        isOpen={isImagePopupOpen ? 'popup_open' : ''} 
-                        name='image'
-                        onClose={closeAllPopups}
-                        selectedCard={selectedCard}
-                    />
-
                     <InfoToolTip
                         name="info-success"
                         isOpen={isInfoToolTipSuccess ? 'popup_open' : ''}
