@@ -67,12 +67,13 @@ class Api {
 
 
 const api = new Api({
-  baseUrl: "http://localhost:3001",
+  baseUrl: "http://localhost:3000",
   headers: {
     authorization: `Bearer 38a23878-64ce-4abb-ae0d-d30d11cc9a38`,
     "Content-Type": "application/json"
   }
 });
+
 // Token: 38a23878-64ce-4abb-ae0d-d30d11cc9a38 Group ID: group-12
 // const api = new Api({
 //     baseUrl: "https://around.nomoreparties.co/v1/group-12",

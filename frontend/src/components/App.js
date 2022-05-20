@@ -26,11 +26,12 @@ function App() {
     const [isLoggedIn, setLoggedIn] = useState(false);
     const [cards, setCards] = useState([]);
     const [token, setToken] = useState(localStorage.getItem('jwt'));
-    console.log(`local storage: ${localStorage.jwt}`);
+    console.log(`token: ${token}`);
 
     function handleLoginSubmit(email, password) {
         auth.login(email, password)
         .then((res) => {
+            console.log(`Login response: ${res}`);
             if(res.jwt) {
                 setToken(res.token);
                 localStorage.setItem("jwt", token);
@@ -50,7 +51,7 @@ function App() {
         auth.register({email, password})
         .then((res) => {
             setInfoToolTipSuccess(true);
-            history.push('/signin');
+            history.push('/login');
         })
         .catch((err) => {
             console.log(`Something went wrong: ${err}`);
@@ -86,15 +87,17 @@ function App() {
     const userEmail = userData ? JSON.parse(userData).data.email : '';
 
     useEffect(() => {
-        Promise.all([api.getUserInfo(), api.getInitialCards()])
-        .then(([userData, cardsData]) => {
-            setCurrentUser(userData);
-            setCards(cardsData);
-        })
-        .catch(err => {
-            console.log("Error - there is any communication with the server: ", err);
-        });
-    }, []);
+        if (isLoggedIn) {
+            Promise.all([api.getUserInfo(), api.getInitialCards()])
+            .then(([userData, cardsData]) => {
+                setCurrentUser(userData);
+                setCards(cardsData);
+            })
+            .catch(err => {
+                console.log("Error - there is any communication with the server: ", err);
+            });
+        }
+    }, [isLoggedIn]);
  
     function handleCardLike(card) {
         const isLiked = card.likes.some(i => i._id === currentUser._id);
@@ -232,7 +235,7 @@ function App() {
                                 user={userEmail}
                                 logOut={handleSignOut}
                                 buttonText='Log out'
-                                url='/signin'
+                                url='/login'
                             />
                             <Main 
                                 onEditProfileClick={handleEditProfileClick}
@@ -291,7 +294,7 @@ function App() {
                                 logOut={handleSignOut}
                                 user={userEmail}
                                 buttonText='Log in'
-                                url='/signin'
+                                url='/login'
                             />
                             <Register 
                                 title="Sign up"
@@ -301,7 +304,7 @@ function App() {
                                 infoPopup={setInfoToolTipFaild}
                             />
                         </Route>
-                        <Route path='/signin'>
+                        <Route path='/login'>
                             <Header 
                                 loggedIn={isLoggedIn}
                                 logOut={handleSignOut}

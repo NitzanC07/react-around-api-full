@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
-module.exports = (req, res, next) => {
-  const {authorization} = req.headers;
+const auth = (req, res, next) => {
+  const { authorization } = req.headers;
   // console.log("authorization", authorization);
 
   if (!authorization || !authorization.startsWith('Bearer ')) {
@@ -9,17 +9,21 @@ module.exports = (req, res, next) => {
   }
 
   const token = authorization.replace('Bearer ', '');
-  let payload
+  let payload;
 
   try {
     payload = jwt.verify(
       token,
-      process.env.NODE_ENV === 'production' ? process.env.JWT_SECRET : 'dev-secret'
-      );
-  } catch {
-    return res.status(403).send({ message: 'Authorization required 222' });
+      process.env.NODE_ENV === 'production' ? process.env.JWT_SECRET : 'dev-secret',
+    );
+  } catch (err) {
+    return err.status(403).send({ message: 'Authorization required 222' });
   }
 
   req.user = payload;
   next();
-}
+};
+
+module.exports = {
+  auth,
+};

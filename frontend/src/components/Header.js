@@ -17,7 +17,7 @@ function Header(props) {
                 {/* <NavLink to='/signin' className='header__links'> */}
                      {
                         props.loggedIn 
-                        ? <NavLink to='/signin' onClick={handleLogOut} className='header__links'>Log out</NavLink>
+                        ? <NavLink to='/login' onClick={handleLogOut} className='header__links'>Log out</NavLink>
                         : <NavLink to={props.url} className='header__links'>{props.buttonText}</NavLink>
                      }
                 {/* </NavLink> */}

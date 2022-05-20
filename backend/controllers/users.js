@@ -74,8 +74,6 @@ const updateProfileAvatar = async (req, res) => {
   }
 };
 
-
-
 module.exports = {
   getUsers,
   getCurrentUser,

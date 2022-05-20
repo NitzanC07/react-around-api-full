@@ -1,7 +1,7 @@
 export const BASE_URL = "https://localhost:3001";
 
 export const checkResponse = (res) => {
-  // console.log(`checkResponse: ${res}`);
+  console.log(`checkResponse: ${res}`);
   if(res.ok) {
     return res.json();
   } else {
@@ -10,7 +10,7 @@ export const checkResponse = (res) => {
 }
 
 export const register = ({email, password}) => {
-  console.log(`data ${email}, ${password}`);
+  console.log(`register ${email}, ${password}`);
   return fetch(`${BASE_URL}/signup`, {
     method: "POST",
     headers: {
@@ -30,7 +30,8 @@ export const register = ({email, password}) => {
 }
 
 export const login = (email, password) => {
-  return fetch(`${BASE_URL}/signin`, {
+  console.log(`Login: ${email}, ${password}`);
+  return fetch(`${BASE_URL}/login`, {
     method: "POST",
     headers: {
       'Accept': "application/json",
