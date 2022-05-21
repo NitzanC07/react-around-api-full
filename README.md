@@ -6,6 +6,6 @@ This repository contains the full API of "Around the U.S." project that features
 * a link to the website that hosts your API.
 
 # Project's domains
-[https://nitzancohen.students.nomoreparties.sbs](https://nitzancohen.students.nomoreparties.sbs)
-[https://www.nitzancohen.students.nomoreparties.sbs](https://www.nitzancohen.students.nomoreparties.sbs)
+[https://nitzancohen.students.nomoreparties.sbs](https://nitzancohen.students.nomoreparties.sbs)\
+[https://www.nitzancohen.students.nomoreparties.sbs](https://www.nitzancohen.students.nomoreparties.sbs)\
 [https://api.nitzancohen.students.nomoreparties.sbs](https://api.nitzancohen.students.nomoreparties.sbs)
