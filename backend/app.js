@@ -26,6 +26,8 @@ const {
 
 const allowedOrigins = [
   'https://https://nitzancohen.students.nomoreparties.sbs/',
+  'https://https://www.nitzancohen.students.nomoreparties.sbs/',
+  'https://https://api.nitzancohen.students.nomoreparties.sbs/',
 ];
 
 mongoose.connect('mongodb://localhost:27017/aroundb');
