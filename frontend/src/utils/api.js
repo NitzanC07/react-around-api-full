@@ -67,7 +67,7 @@ class Api {
 
 
 const api = new Api({
-  baseUrl: "http://localhost:3000",
+  baseUrl: "http://http://nitzancohen.students.nomoreparties.sbs/",
   headers: {
     authorization: `Bearer 38a23878-64ce-4abb-ae0d-d30d11cc9a38`,
     "Content-Type": "application/json"

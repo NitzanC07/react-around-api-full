@@ -1,4 +1,4 @@
-export const BASE_URL = "https://localhost:3001";
+export const BASE_URL = "https://http://nitzancohen.students.nomoreparties.sbs/";
 
 export const checkResponse = (res) => {
   console.log(`checkResponse: ${res}`);

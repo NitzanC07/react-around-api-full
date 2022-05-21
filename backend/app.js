@@ -25,7 +25,7 @@ const {
 } = require('./middleware/auth');
 
 const allowedOrigins = [
-  'https://localhost:3000',
+  'https://http://nitzancohen.students.nomoreparties.sbs/',
 ];
 
 mongoose.connect('mongodb://localhost:27017/aroundb');
