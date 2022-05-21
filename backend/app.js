@@ -39,6 +39,13 @@ app.options(allowedOrigins, cors());
 
 app.use(requestLogger);
 
+/** Need to remove the section after the review. */
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Server will crash now');
+  }, 0);
+});
+
 /** Unathuorized routes */
 app.post('/signup', createUser);
 app.post('/signin', loginUser);
