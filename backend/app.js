@@ -41,7 +41,7 @@ app.use(requestLogger);
 
 /** Unathuorized routes */
 app.post('/signup', createUser);
-app.post('/login', loginUser);
+app.post('/signin', loginUser);
 
 app.use(auth);
 

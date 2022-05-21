@@ -17,7 +17,7 @@ const auth = (req, res, next) => {
       process.env.NODE_ENV === 'production' ? process.env.JWT_SECRET : 'dev-secret',
     );
   } catch (err) {
-    return err.status(403).send({ message: 'Authorization required 222' });
+    return err.status(403).send({ message: 'Authorization required' });
   }
 
   req.user = payload;
