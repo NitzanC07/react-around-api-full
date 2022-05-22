@@ -2,8 +2,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
+const rateLimit = require('express-rate-limit')
 const cors = require('cors');
 const {
+  celebrate,
+  Joi,
   errors,
 } = require('celebrate');
 const {
@@ -13,6 +16,13 @@ const {
 require('dotenv').config();
 
 const app = express();
+const limiter = rateLimit({
+  max: 100, // limit of 100 requests from each IP.
+  windowMs: 15*60*1000, // 900,000ms = 15mins
+  standardHeaders: true, //Return rate limit information in the headers.
+	legacyHeaders: false, // Disable the X-RateLimit-* headers.
+  message: 'Too many requests from this IP.', // Return a message if reqeusts reached to the limit.
+});
 const { PORT = 3000 } = process.env;
 const usersRouter = require('./routes/users');
 const cardsRouter = require('./routes/cards');
@@ -35,6 +45,7 @@ mongoose.connect('mongodb://localhost:27017/aroundb');
 app.use(helmet());
 app.use(bodyParser.json());
 app.use(cors());
+app.use(limiter);
 app.options(allowedOrigins, cors());
 
 app.use(requestLogger);
@@ -46,7 +57,12 @@ app.get('/crash-test', () => {
 });
 
 /** Unathuorized routes */
-app.post('/signup', createUser);
+app.post('/signup', celebrate({
+  body: Joi.object().keys({
+    email: Joi.string().required().min(2).max(30),
+    password: Joi.string().required().min(2).max(30),
+  }),
+}), createUser);
 app.post('/signin', loginUser);
 
 app.use(auth);
