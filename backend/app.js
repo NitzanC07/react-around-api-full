@@ -57,12 +57,7 @@ app.get('/crash-test', () => {
 });
 
 /** Unathuorized routes */
-app.post('/signup', celebrate({
-  body: Joi.object().keys({
-    email: Joi.string().required().min(2).max(30),
-    password: Joi.string().required().min(2).max(30),
-  }),
-}), createUser);
+app.post('/signup', createUser);
 app.post('/signin', loginUser);
 
 app.use(auth);
