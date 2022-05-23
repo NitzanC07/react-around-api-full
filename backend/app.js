@@ -36,12 +36,13 @@ const allowedOrigins = [
   'https://nitzancohen.students.nomoreparties.sbs/',
   'https://www.nitzancohen.students.nomoreparties.sbs/',
   'https://api.nitzancohen.students.nomoreparties.sbs/',
+  'localhost:3000',
 ];
 
 mongoose.connect('mongodb://localhost:27017/aroundb');
 
 app.use(cors());
-// app.options(allowedOrigins, cors());
+app.options(allowedOrigins, cors());
 app.use(limiter);
 app.use(helmet());
 app.use(bodyParser.json());
