@@ -41,7 +41,7 @@ const allowedOrigins = [
 mongoose.connect('mongodb://localhost:27017/aroundb');
 
 app.use(cors());
-app.options(allowedOrigins, cors());
+// app.options(allowedOrigins, cors());
 app.use(limiter);
 app.use(helmet());
 app.use(bodyParser.json());
@@ -70,7 +70,6 @@ app.use((req, res) => {
 
 app.use(errorLogger);
 app.use(errors());
-
 app.use((err, req, res, next) => {
   const { statusCode = 500, message } = err;
   res.status(statusCode).send({
