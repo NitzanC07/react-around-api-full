@@ -4,28 +4,28 @@ class ErrorHandler extends Error {
     this.statusCode = statusCode;
     this.message = message;
   }
+}
 
-  handleAnyError = (err, res) => {
-    const { statusCode, message } = err;
-    res.status(statusCode).json({
-      status: "error",
-      statusCode,
-      message
-    });
-  };
+handleAnyError = (err, res) => {
+  const { statusCode, message } = err;
+  res.status(statusCode).json({
+    status: "error",
+    statusCode,
+    message
+  });
+};
 
-  handleServerError = (err, res) => {
-    res.status(500).json({
-      error: {message: 'Somthing went wrong with the server.'}
-    })
-  }
+handleServerError = (err, res) => {
+  res.status(500).json({
+    error: {message: 'Somthing went wrong with the server.'}
+  })
 }
 
 const customErrorHandler = (err, res) => {
   console.log(`ErrorHandler: ${err}`);
   err instanceof ErrorHandler
-    ? ErrorHandler.handleAnyError(err, res)
-    : ErrorHandler.handleServerError(err, res);
+    ? handleAnyError(err, res)
+    : handleServerError(err, res);
 }
 
 module.exports = {
