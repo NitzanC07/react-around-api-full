@@ -19,10 +19,13 @@ router.post('/', celebrate({
   body: Joi.object().keys({
     name: Joi.string()
       .required()
+      .min(2)
+      .max(30),
+    link: Joi.string()
+      .required()
       .pattern(new RegExp('/^http(s)?:\/{2}(w{3}.)?[\w-]+.\w+/ig'))
       .min(2)
       .max(30),
-    link: Joi.string().required().min(2).max(30),
   }),
 }), createNewCard);
 router.delete('/:card_id', deleteCard);
