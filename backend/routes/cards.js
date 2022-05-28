@@ -28,12 +28,23 @@ router.post('/', celebrate({
       .max(30),
   }),
 }), createNewCard);
+
 router.delete('/:card_id', celebrate({
   params: Joi.object().keys({
     card_id: Joi.string().alphanum(),
   })
 }) , deleteCard);
-router.put('/:card_id/likes', likeCard);
-router.delete('/:card_id/likes', dislikeCard);
+
+router.put('/:card_id/likes', celebrate({
+  params: Joi.object().keys({
+    card_id: Joi.string().alphanum(),
+  })
+}), likeCard);
+
+router.delete('/:card_id/likes', celebrate({
+  params: Joi.object().keys({
+    card_id: Joi.string().alphanum(),
+  })
+}), dislikeCard);
 
 module.exports = router;
