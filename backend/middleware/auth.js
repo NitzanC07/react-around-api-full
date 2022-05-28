@@ -7,6 +7,7 @@ const auth = (req, res, next) => {
 
   if (!authorization || !authorization.startsWith('Bearer ')) {
     throw new ErrorHandler(403, 'Authorization required')
+    next();
     // return res.status(403).send({ message: 'Authorization required' });
   }
 
@@ -20,6 +21,7 @@ const auth = (req, res, next) => {
     );
   } catch (err) {
     throw new ErrorHandler(403, 'Authorization required')
+    next();
     // return err.status(403).send({ message: 'Authorization required' });
   }
 
