@@ -6,9 +6,7 @@ const auth = (req, res, next) => {
   // console.log("authorization", authorization);
 
   if (!authorization || !authorization.startsWith('Bearer ')) {
-    throw new ErrorHandler(403, 'Authorization required')
-    next();
-    // return res.status(403).send({ message: 'Authorization required' });
+    return res.status(403).send({ message: 'Authorization required' });
   }
 
   const token = authorization.replace('Bearer ', '');
@@ -20,9 +18,7 @@ const auth = (req, res, next) => {
       process.env.NODE_ENV === 'production' ? process.env.JWT_SECRET : 'dev-secret',
     );
   } catch (err) {
-    throw new ErrorHandler(403, 'Authorization required')
-    next();
-    // return err.status(403).send({ message: 'Authorization required' });
+    return err.status(403).send({ message: 'Authorization required' });
   }
 
   req.user = payload;
