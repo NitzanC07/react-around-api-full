@@ -63,7 +63,6 @@ app.use(errorLogger);
 app.use(errors());
 app.use((req, res) => {
   throw new ErrorHandler(404, 'The requested resource was not found.');
-  // res.status(404).send({ message: 'The requested resource was not found. ROOT PAGE' });
 });
 
 app.use((err, req, res, next) => {
