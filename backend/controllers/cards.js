@@ -22,8 +22,8 @@ const createNewCard = async (req, res) => {
   } catch (err) {
     if (err.name === 'ValidationError') {
       console.log(`Error in createNewCard: ${err}`);
-      throw new ErrorHandler(400, 'Incorrect with title or link.')
-      // res.status(400).send({ message: `${err.name}: Somthing wrong with the input.` });
+      // throw new ErrorHandler(400, 'Incorrect with title or link.')
+      res.status(400).send({ message: `${err.name}: Somthing wrong with the input.` });
     } else {
       console.log(`Error in createNewCard: ${err}`);
       res.status(500).send({ message: `${err.name}: Somthing wrong with the server.` });
