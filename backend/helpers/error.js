@@ -17,13 +17,14 @@ handleAnyError = (err, res) => {
 };
 
 handleServerError = (err, res) => {
+  res.send(`handleServerError: ${err}`);
   res.status(500).json({
-    error: {message: `Somthing went wrong with the server 500 ${err}.`}
+    error: { message: `Somthing went wrong with the server 500 ${err}.`}
   })
 }
 
 const customErrorHandler = (err, res) => {
-  console.log(`ErrorHandler: ${err}`);
+  res.send(`customErrorHandler: ${err}`);
   err instanceof ErrorHandler
     ? handleAnyError(err, res)
     : handleServerError(err, res);
