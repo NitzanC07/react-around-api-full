@@ -7,6 +7,10 @@ const {
   errors,
 } = require('celebrate');
 const {
+  ErrorHandler,
+  customErrorHandler,
+} = require('./helpers/error');
+const {
   requestLogger,
   errorLogger,
 } = require('./middleware/logger');
@@ -58,16 +62,12 @@ app.use('/cards', cardsRouter);
 app.use(errorLogger);
 app.use(errors());
 app.use((req, res) => {
-  res.status(404).send({ message: 'The requested resource was not found. ROOT PAGE' });
+  throw new ErrorHandler(404, 'The requested resource was not found. ROOT PAGE');
+  // res.status(404).send({ message: 'The requested resource was not found. ROOT PAGE' });
 });
 
 app.use((err, req, res, next) => {
-  const { statusCode = 500, message } = err;
-  res.status(statusCode).send({
-    message: statusCode === 500
-      ? 'An error occurred on the server'
-      : message,
-  });
+  customErrorHandler(err, res);
 });
 
 app.listen(PORT, () => {
