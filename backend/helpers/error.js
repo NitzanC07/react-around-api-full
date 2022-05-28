@@ -24,8 +24,8 @@ class ErrorHandler extends Error {
 const customErrorHandler = (err, res) => {
   console.log(`ErrorHandler: ${err}`);
   err instanceof ErrorHandler
-    ? handleAnyError(err, res)
-    : handleServerError(err, res);
+    ? ErrorHandler.handleAnyError(err, res)
+    : ErrorHandler.handleServerError(err, res);
 }
 
 module.exports = {
