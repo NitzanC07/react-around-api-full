@@ -17,9 +17,8 @@ handleAnyError = (err, res) => {
 };
 
 handleServerError = (err, res) => {
-  res.send(`handleServerError: ${err}`);
   res.status(500).json({
-    error: {message: 'Somthing went wrong with the server 500.'}
+    error: {message: `Somthing went wrong with the server 500 ${err}.`}
   })
 }
 
