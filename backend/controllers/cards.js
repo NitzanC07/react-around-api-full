@@ -39,7 +39,7 @@ const deleteCard = async (req, res) => {
 
     if (card === null) {
       res.status(404).send({ message: 'Card id isn\'t found.' });
-    } else if (card.owner !== req.user._id) {
+    } else if (card.owner._id.toString() !== req.user._id) {
       res.status(403).send({ message: 'Unathouraized: you are not card\'s owner.' });
     } else {
       await Card.findByIdAndDelete(cardId);
