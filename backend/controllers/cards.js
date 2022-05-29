@@ -1,6 +1,6 @@
 const Card = require('../models/card');
 const {
-  ErrorHandler
+  ErrorHandler,
 } = require('../helpers/error');
 
 const getCards = async (req, res) => {
