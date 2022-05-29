@@ -34,7 +34,7 @@ const allowedOrigins = [
   'https://api.nitzancohen.students.nomoreparties.sbs/',
 ];
 
-mongoose.connect('mongodb://localhost:27017/aroundb');
+mongoose.connect('mongodb://127.0.0.1:27017/aroundb');
 
 app.use(helmet());
 app.use(bodyParser.json());

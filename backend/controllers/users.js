@@ -1,3 +1,4 @@
+const { ErrorHandler } = require('../helpers/error');
 const User = require('../models/user');
 
 /** Function for get the whole list of the users from data base. */
