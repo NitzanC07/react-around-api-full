@@ -35,6 +35,8 @@ const deleteCard = async (req, res) => {
   const cardId = req.params.card_id;
   try {
     const card = await Card.findById(cardId);
+    console.log(`card in deleteCard function: ${card}`);
+
     if (card === null) {
       res.status(404).send({ message: 'Card id isn\'t found.' });
     } else if (card.owner !== req.user._id) {
