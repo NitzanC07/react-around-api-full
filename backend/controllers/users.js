@@ -46,10 +46,12 @@ const updateProfile = async (req, res) => {
   } catch (err) {
     if (err.name === 'ValidationError') {
       console.log('Error in updateProfile: ', err);
-      res.status(400).send({ message: `${err.name}: Something wrong with the input.` });
+      return next(new ErrorHandler(400, 'Something wrong with the input.'))
+      // res.status(400).send({ message: `${err.name}: Something wrong with the input.` });
     } else {
       console.log('Error in updateProfile: ', err);
-      res.status(500).send({ message: `${err.name}: Something wrong with the server.` });
+      return next(new ErrorHandler(500, 'Something wrong with the server.'))
+      // res.status(500).send({ message: `${err.name}: Something wrong with the server.` });
     }
   }
 };
