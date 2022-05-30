@@ -4,6 +4,8 @@ const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const cors = require('cors');
 const {
+  celebrate,
+  Joi,
   errors,
 } = require('celebrate');
 const {
@@ -50,8 +52,27 @@ app.get('/crash-test', () => {
 });
 
 /** Unathuorized routes */
-app.post('/signup', createUser);
-app.post('/signin', loginUser);
+app.post('/signup', celebrate({
+  body: Joi.object().keys({
+    email: Joi.string()
+      .required()
+      .pattern(new RegExp('/[\w.-]+@[\w.-]+/ig')), //eslint-disable-line
+    password: Joi.string()
+      .required()
+      .min(4),
+  }),
+}), createUser);
+
+app.post('/signin', celebrate({
+  body: Joi.object().keys({
+    email: Joi.string()
+      .required()
+      .pattern(new RegExp('/[\w.-]+@[\w.-]+/ig')), //eslint-disable-line
+    password: Joi.string()
+      .required()
+      .min(4),
+  }),
+}), loginUser);
 
 app.use(auth);
 
