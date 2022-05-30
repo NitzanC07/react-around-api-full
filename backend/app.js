@@ -61,7 +61,7 @@ app.use('/cards', cardsRouter);
 
 app.use(errorLogger);
 app.use(errors());
-app.use((req, res) => {
+app.use(() => {
   throw new ErrorHandler(404, 'The requested resource was not found.');
 });
 

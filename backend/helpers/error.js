@@ -6,7 +6,7 @@ class ErrorHandler extends Error {
   }
 }
 
-handleAnyError = (err, res) => {
+const handleAnyError = (err, res) => {
   const { statusCode, message } = err;
   res.status(statusCode).json({
     status: 'error',
@@ -15,7 +15,7 @@ handleAnyError = (err, res) => {
   });
 };
 
-handleServerError = (err, res) => {
+const handleServerError = (err, res) => {
   res.status(500).json({
     error: { message: `Somthing went wrong with the server 500 ${err}.` },
   });

@@ -12,7 +12,7 @@ const {
   updateProfileAvatar,
 } = require('../controllers/users');
 
-// Every path begin with: /users/...
+/** Every path begin with: /users/... */
 router.get('/', getUsers);
 
 router.get('/me', getCurrentUser);
@@ -27,7 +27,7 @@ router.patch('/me', celebrate({
 router.patch('/me/avatar', celebrate({
   body: Joi.object().keys({
     avatar: Joi.string()
-      .pattern(new RegExp('/^http(s)?:\/{2}(w{3}.)?[\w-]+.\w+/ig')),
+      .pattern('/^http(s)?:\/{2}(w{3}.)?[\w-]+.\w+/ig'), // eslint-disable-line
   }),
 }), updateProfileAvatar);
 
