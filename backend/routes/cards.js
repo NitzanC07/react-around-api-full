@@ -23,7 +23,7 @@ router.post('/', celebrate({
       .max(30),
     link: Joi.string()
       .required()
-      .pattern('/^http(s)?:\/{2}(\w{3}.)?[\w-]+.\w+/ig') // eslint-disable-line
+      .pattern(new RegExp('/^http(s)?:\/{2}(w{3}.)?[\w-]+.\w+/ig')) //eslint-disable-line
       .min(2)
       .max(30),
   }),
