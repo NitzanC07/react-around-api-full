@@ -8,7 +8,8 @@ const getUsers = async (req, res) => {
     res.status(200).send(users);
   } catch (err) {
     console.log('Error in getUsers: ', err);
-    res.status(500).send({ message: 'Somthing went wrong.' });
+    return next(ErrorHandler(500, 'Somthing went wrong.'))
+    // res.status(500).send({ message: 'Somthing went wrong.' });
   }
 };
 
@@ -17,17 +18,20 @@ const getCurrentUser = async (req, res) => {
   try {
     const user = await User.findById(req.user._id).select('+password');
     if (!user) {
-      res.status(404).send({ message: 'User ID not found.' });
+      return next(ErrorHandler(404, 'User ID not found.'))
+      // res.status(404).send({ message: 'User ID not found.' });
     } else {
       res.status(200).send(user);
     }
   } catch (err) {
     if (err.name === 'CastError') {
       console.log('Error in getUserById, status 400: ', err.name);
-      res.status(400).send({ message: `${err.name}: Something wrong with the input.` });
+      return next(ErrorHandler(400, `${err.name}: Something wrong with the input.`))
+      // res.status(400).send({ message: `${err.name}: Something wrong with the input.` });
     } else {
       console.log('Error in getUserById, status 500: ', err.name);
-      res.status(500).send({ message: 'Somthing went wrong with the server.' });
+      return next(ErrorHandler(500, 'Somthing went wrong with the server.'))
+      // res.status(500).send({ message: 'Somthing went wrong with the server.' });
     }
   }
 };
@@ -69,10 +73,12 @@ const updateProfileAvatar = async (req, res) => {
   } catch (err) {
     if (err.name === 'ValidationError') {
       console.log('Error in updateProfileAvatar: ', err.name);
-      res.status(400).send({ message: `${err.name}: Something wrong with the input.` });
+      return next(new ErrorHandler(400, `${err.name}: Something wrong with the input.`))
+      // res.status(400).send({ message: `${err.name}: Something wrong with the input.` });
     } else {
       console.log('Error in updateProfileAvatar: ', err);
-      res.status(500).send({ message: `${err.name}: Something wrong with the server.` });
+      return next(ErrorHandler(500, `${err.name}: Something wrong with the server.`))
+      // res.status(500).send({ message: `${err.name}: Something wrong with the server.` });
     }
   }
 };
