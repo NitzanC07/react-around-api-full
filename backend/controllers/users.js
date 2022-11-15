@@ -9,7 +9,7 @@ const getUsers = async (req, res, next) => {
     return users;
   } catch (err) {
     console.log('Error in getUsers: ', err);
-    return next(ErrorHandler(500, 'Somthing went wrong.'));
+    return next(new ErrorHandler(500, 'Somthing went wrong.'));
   }
 };
 
@@ -18,17 +18,17 @@ const getCurrentUser = async (req, res, next) => {
   try {
     const user = await User.findById(req.user._id).select('+password');
     if (!user) {
-      return next(ErrorHandler(404, 'User ID not found.'));
+      return next(new ErrorHandler(404, 'User ID not found.'));
     }
     res.status(200).send(user);
     return user;
   } catch (err) {
     if (err.name === 'CastError') {
       console.log('Error in getUserById, status 400: ', err.name);
-      return next(ErrorHandler(400, `${err.name}: Something wrong with the input.`));
+      return next(new ErrorHandler(400, `${err.name}: Something wrong with the input.`));
     }
     console.log('Error in getUserById, status 500: ', err.name);
-    return next(ErrorHandler(500, 'Somthing went wrong with the server.'));
+    return next(new ErrorHandler(500, 'Somthing went wrong with the server.'));
   }
 };
 
@@ -71,7 +71,7 @@ const updateProfileAvatar = async (req, res, next) => {
       return next(new ErrorHandler(400, `${err.name}: Something wrong with the input.`));
     }
     console.log('Error in updateProfileAvatar: ', err);
-    return next(ErrorHandler(500, `${err.name}: Something wrong with the server.`));
+    return next(new ErrorHandler(500, `${err.name}: Something wrong with the server.`));
   }
 };
 

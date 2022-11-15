@@ -12,7 +12,7 @@ const {
   updateProfileAvatar,
 } = require('../controllers/users');
 
-/** Every path begin with: /users/... */
+/** Every path begin with: /users... */
 router.get('/', getUsers);
 
 router.get('/me', getCurrentUser);

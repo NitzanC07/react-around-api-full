@@ -29,6 +29,7 @@ const {
 } = require('./middleware/auth');
 
 const allowedOrigins = [
+  'http://35.192.139.32:3000/',
   'https://nitzancohen.students.nomoreparties.sbs/',
   'https://www.nitzancohen.students.nomoreparties.sbs/',
   'https://api.nitzancohen.students.nomoreparties.sbs/',
@@ -42,12 +43,6 @@ app.use(cors());
 app.options(allowedOrigins, cors());
 
 app.use(requestLogger);
-
-app.get('/crash-test', () => {
-  setTimeout(() => {
-    throw new Error('Server will crash now');
-  }, 0);
-});
 
 /** Unathuorized routes */
 app.post('/signup', createUser);
