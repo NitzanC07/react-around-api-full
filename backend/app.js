@@ -29,7 +29,7 @@ const {
 } = require('./middleware/auth');
 
 const allowedOrigins = [
-  'http://35.192.139.32:3000/',
+  'http://34.170.191.159:3000/',
   'https://nitzancohen.students.nomoreparties.sbs/',
   'https://www.nitzancohen.students.nomoreparties.sbs/',
   'https://api.nitzancohen.students.nomoreparties.sbs/',
